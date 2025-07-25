@@ -12,24 +12,7 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   double borderRadius = 10;
-  GlobalKey rightBoxKey = GlobalKey();
-  double? leftBoxHeight;
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final rightBoxContext = rightBoxKey.currentContext;
-      final rightBoxRenderBox = rightBoxContext?.findRenderObject();
-
-      setState(() {
-        leftBoxHeight = rightBoxRenderBox is RenderBox
-            ? rightBoxRenderBox.size.height
-            : null;
-      });
-    });
-  }
+  double leftBoxWidth = 116;
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +34,13 @@ class _ProductItemState extends State<ProductItem> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        child: Row(
+        child: Stack(
           children: [
-            SizedBox(
-              width: 116,
-              height: leftBoxHeight,
+            Positioned(
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: leftBoxWidth,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(borderRadius),
                 child: Image.asset(
@@ -64,51 +49,55 @@ class _ProductItemState extends State<ProductItem> {
                 ),
               ),
             ),
-            Expanded(
-              key: rightBoxKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 14,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '김치냉장고',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+            Row(
+              children: [
+                SizedBox(width: leftBoxWidth),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 14,
                     ),
-                    SizedBox(height: 4),
-                    Text(
-                      '인천 계양구 귤현동',
-                      style: TextStyle(color: Color(0xffACA6AD)),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      Formatter.formatPrice(20000),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Spacer(),
-                        Icon(Icons.chat_bubble_outline),
-                        Text('2'),
-                        SizedBox(width: 9),
-                        Icon(Icons.favorite_border),
-                        Text('8'),
+                        Text(
+                          '김치냉장고',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '인천 계양구 귤현동',
+                          style: TextStyle(color: Color(0xffACA6AD)),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          Formatter.formatPrice(20000),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Spacer(),
+                            Icon(Icons.chat_bubble_outline),
+                            Text('2'),
+                            SizedBox(width: 9),
+                            Icon(Icons.favorite_border),
+                            Text('8'),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
