@@ -1,4 +1,5 @@
 import 'package:apple_market/core/formatter.dart';
+import 'package:apple_market/presentation/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatefulWidget {
@@ -18,15 +19,14 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO : 디테일페이지 완성 후 적용하기
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return DetailPage();
-        //     },
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return DetailPage();
+            },
+          ),
+        );
       },
       child: Card(
         clipBehavior: Clip.hardEdge,
