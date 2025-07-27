@@ -1,19 +1,14 @@
 import 'package:apple_market/core/formatter.dart';
+import 'package:apple_market/domain/entities/product.dart';
 import 'package:apple_market/presentation/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 
-class ProductItem extends StatefulWidget {
-  const ProductItem({super.key});
+class ProductItem extends StatelessWidget {
+  const ProductItem({super.key, required this.product});
 
-  @override
-  State<StatefulWidget> createState() {
-    return _ProductItemState();
-  }
-}
-
-class _ProductItemState extends State<ProductItem> {
-  double borderRadius = 10;
-  double leftBoxWidth = 116;
+  final Product product;
+  final double borderRadius = 10;
+  final double leftBoxWidth = 116;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +18,7 @@ class _ProductItemState extends State<ProductItem> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return DetailPage();
+              return DetailPage(product: product);
             },
           ),
         );
@@ -44,7 +39,7 @@ class _ProductItemState extends State<ProductItem> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(borderRadius),
                 child: Image.asset(
-                  'assets/images/sample2.png',
+                  'assets/images/${product.imageName}.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -62,7 +57,7 @@ class _ProductItemState extends State<ProductItem> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '김치냉장고',
+                          product.productName,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -72,12 +67,12 @@ class _ProductItemState extends State<ProductItem> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          '인천 계양구 귤현동',
+                          product.address,
                           style: TextStyle(color: Color(0xffACA6AD)),
                         ),
                         SizedBox(height: 8),
                         Text(
-                          Formatter.formatPrice(20000),
+                          Formatter.formatPrice(int.parse(product.price)),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -87,10 +82,10 @@ class _ProductItemState extends State<ProductItem> {
                           children: [
                             Spacer(),
                             Icon(Icons.chat_bubble_outline),
-                            Text('2'),
+                            Text(product.chat.toString()),
                             SizedBox(width: 9),
                             Icon(Icons.favorite_border),
-                            Text('8'),
+                            Text(product.favorite.toString()),
                           ],
                         ),
                       ],

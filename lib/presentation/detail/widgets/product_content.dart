@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ProductContent extends StatelessWidget {
-  const ProductContent({super.key});
+  const ProductContent({
+    super.key,
+    required this.productName,
+    required this.productContent,
+  });
+
+  final String productName;
+  final String productContent;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +18,11 @@ class ProductContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '프라다 복조리백',
+            productName,
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 18),
-          Text('까임 오염없고 상태 깨끗합니다\n정품여부모름', style: TextStyle(fontSize: 18)),
+          Text(productContent, style: TextStyle(fontSize: 18)),
         ],
       ),
     );

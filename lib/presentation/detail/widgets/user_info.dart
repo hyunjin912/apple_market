@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class UserInfo extends StatelessWidget {
-  const UserInfo({super.key});
+  const UserInfo({super.key, required this.seller, required this.address});
+
+  final String seller;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +33,11 @@ class UserInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '미니멀하게',
+                    seller,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '수원시 영통구 원천동',
+                    address,
                     style: TextStyle(fontSize: 15, color: Color(0xffACA6AD)),
                   ),
                 ],
