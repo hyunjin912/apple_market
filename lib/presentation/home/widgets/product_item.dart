@@ -118,7 +118,14 @@ class ProductItem extends StatelessWidget {
                             Icon(Icons.chat_bubble_outline),
                             Text(product.chat.toString()),
                             SizedBox(width: 9),
-                            Icon(Icons.favorite_border),
+                            Icon(
+                              product.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: product.isFavorite
+                                  ? Color(0xffFF3B30)
+                                  : Color(0xff939393),
+                            ),
                             Text(product.favorite.toString()),
                           ],
                         ),

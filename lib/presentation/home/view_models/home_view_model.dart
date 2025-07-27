@@ -20,4 +20,23 @@ class HomeViewModel extends AsyncNotifier<List<Product>> {
     final newState = state.value!.where((e) => e.id != id).toList();
     state = AsyncValue.data(newState);
   }
+
+  void toggleIsFavorite(String id) {
+    final newState = state.value!.map((e) {
+      if (e.id == id) {
+        final newProduct = e.copyWith(isFavorite: !e.isFavorite);
+
+        if (newProduct.isFavorite) {
+          newProduct.copyWith(favorite: newProduct.favorite++);
+        } else {
+          newProduct.copyWith(favorite: newProduct.favorite--);
+        }
+
+        return newProduct;
+      }
+
+      return e;
+    }).toList();
+    state = AsyncValue.data(newState);
+  }
 }

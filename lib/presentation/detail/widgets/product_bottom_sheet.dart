@@ -1,26 +1,24 @@
 import 'package:apple_market/core/formatter.dart';
 import 'package:apple_market/presentation/common/custom_button.dart';
-import 'package:apple_market/provider/detail_provider.dart';
-import 'package:apple_market/provider/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductBottomSheet extends ConsumerStatefulWidget {
-  const ProductBottomSheet({super.key, required this.id});
+class ProductBottomSheet extends ConsumerWidget {
+  const ProductBottomSheet({
+    super.key,
+    required this.id,
+    required this.isFavorite,
+    required this.price,
+    required this.toggleIsFavorite,
+  });
 
   final String id;
+  final bool isFavorite;
+  final String price;
+  final void Function() toggleIsFavorite;
 
   @override
-  ConsumerState<ProductBottomSheet> createState() => _ProductBottomSheetState();
-}
-
-class _ProductBottomSheetState extends ConsumerState<ProductBottomSheet> {
-  bool isFavorite = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final isFavorite = ref.watch(isFavoriteProvider);
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       color: Colors.white,
       height: 90,
@@ -30,20 +28,14 @@ class _ProductBottomSheetState extends ConsumerState<ProductBottomSheet> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: () {
-                ref.read(isFavoriteProvider.notifier).state = !isFavorite;
-                print(isFavorite);
-                // ref
-                //     .read(homeViewModelProvider.notifier)
-                //     .toggleFavorite(widget.id, isFavorite);
-              },
+              onPressed: toggleIsFavorite,
               icon: Icon(
                 isFavorite ? Icons.favorite : Icons.favorite_border,
                 color: isFavorite ? Color(0xffFF3B30) : Color(0xff939393),
               ),
             ),
             Text(
-              Formatter.formatPrice(50000),
+              Formatter.formatPrice(int.parse(price)),
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(
