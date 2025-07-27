@@ -60,7 +60,10 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return ProductItem(product: products[index]);
+                return ProductItem(
+                  key: ValueKey(products[index].id),
+                  product: products[index],
+                );
               },
               separatorBuilder: (context, index) {
                 return Divider(height: 30);
