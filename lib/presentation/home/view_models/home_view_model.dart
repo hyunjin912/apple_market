@@ -15,4 +15,9 @@ class HomeViewModel extends AsyncNotifier<List<Product>> {
 
     return fetchProductsUseCase.execute();
   }
+
+  void deleteProduct(String id) {
+    final newState = state.value!.where((e) => e.id != id).toList();
+    state = AsyncValue.data(newState);
+  }
 }

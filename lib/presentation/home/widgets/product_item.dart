@@ -1,7 +1,9 @@
 import 'package:apple_market/core/formatter.dart';
 import 'package:apple_market/domain/entities/product.dart';
 import 'package:apple_market/presentation/detail/detail_page.dart';
+import 'package:apple_market/provider/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key, required this.product});
@@ -13,6 +15,38 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('상품 삭제'),
+              content: Text('이 상품을 삭제하시겠습니까?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('취소'),
+                ),
+                Consumer(
+                  builder: (context, ref, child) {
+                    return TextButton(
+                      onPressed: () {
+                        ref
+                            .read(homeViewModelProvider.notifier)
+                            .deleteProduct(product.id);
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('확인'),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
       onTap: () {
         Navigator.push(
           context,

@@ -31,9 +31,6 @@ class ProductDataSourceImpl implements ProductDataSource {
     }
   }
 
-  @override
-  Future<void> updateFavorite(String id) async {}
-
   /// 큰 따옴표 외부에 있는 쉼표를 기준으로 split
   List<String> _splitByComma(String line) {
     List<String> result = [];
